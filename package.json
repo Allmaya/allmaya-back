@@ -1,0 +1,22 @@
+{
+  "name": "allmaya-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Allmaya/allmaya-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Allmaya/allmaya-back/issues"
+  },
+  "homepage": "https://github.com/Allmaya/allmaya-back#readme",
+  "dependencies": {
+    "koa": "^2.13.4"
+  }
+}
