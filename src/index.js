@@ -1,7 +1,11 @@
+require('dotenv').config();
 const Koa = require('koa');
 
 const app = new Koa();
 
-app.listen(4000, () => {
-    console.log('Listening to port %d', 4000);
+const { PORT } = process.env;
+
+const port = PORT || 4000;
+app.listen(port, () => {
+    console.log('Listening to port %d', port);
 })
