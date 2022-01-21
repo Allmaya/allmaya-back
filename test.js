@@ -24,8 +24,8 @@ const TOKEN_PATH = 'token.json';
  */
 function authorize(callback) {
   const oAuth2Client = new google.auth.OAuth2(
-    "424192743831-iovu3hofj8mit1rvfqu827afom3qcpqm.apps.googleusercontent.com",
-    "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",
+    "424192743831-4s5jni8s03fiujpnpdcac15hl7h32bkq.apps.googleusercontent.com",
+    "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",
     "http://localhost:4000/oauth2redirect"
 );
 
