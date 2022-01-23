@@ -17,6 +17,7 @@ const create = async (ctx) => {
     console.log(`create sheet by template ${type}`);
 
     const authGoogle = await sheetCtrl.authorizeGoogle();
+    console.log("1;;;;;;;;;;;", authGoogle);
 
     const spreadSheetId = await sheetCtrl.createSheet(authGoogle, `TYPE:${type}_ID:${id}`);
 

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { GoogleAuth } = require('google-auth-library');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -11,15 +12,15 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = 'token.json';
 
 const authorizeGoogle = async () => {
-  const oAuth2Client = new google.auth.OAuth2(
-    "424192743831-iovu3hofj8mit1rvfqu827afom3qcpqm.apps.googleusercontent.com",
-    "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",
-    "http://localhost:4000/oauth2redirect"
-  );
+  const auth = new GoogleAuth({
+    keyFile: "./keys.json", //the key file
+    //url to spreadsheets API
+    scopes: "https://www.googleapis.com/auth/spreadsheets", 
+  });
 
-  const token = fs.readFileSync(TOKEN_PATH);
-  oAuth2Client.setCredentials(JSON.parse(token));
-  return oAuth2Client;
+  // const token = fs.readFileSync(TOKEN_PATH);
+  // oAuth2Client.setCredentials(JSON.parse(token));
+  return auth;
 }
 
 const createSheet = async (authGoogle, userId) => {
@@ -36,7 +37,9 @@ const createSheet = async (authGoogle, userId) => {
     }
 
     try {
+      console.log("????????");
       const response = (await sheets.spreadsheets.create(request)).data;
+      console.log("empty????", response);
       return response.spreadsheetId;
     } catch (e) {
       console.error(e);

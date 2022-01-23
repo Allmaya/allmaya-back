@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { GoogleAuth } = require('google-auth-library');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -22,7 +23,35 @@ const TOKEN_PATH = 'token.json';
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(callback) {
+async function authorize(callback) {
+  const auth = new GoogleAuth({
+    keyFile: "./keys.json", //the key file
+    //url to spreadsheets API
+    scopes: "https://www.googleapis.com/auth/spreadsheets", 
+  });
+  const authClientObject = await auth.getClient();
+
+  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
+
+  googleSheetsInstance.spreadsheets.values.get({
+    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+    range: 'Class Data!A2:E',
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    const rows = res.data.values;
+    if (rows.length) {
+      console.log('Name, Major:');
+      // Print columns A and E, which correspond to indices 0 and 4.
+      rows.map((row) => {
+        console.log(`${row[0]}, ${row[4]}`);
+      });
+    } else {
+      console.log('No data found.');
+    }
+  });
+
+  return;
+
   const oAuth2Client = new google.auth.OAuth2(
     "424192743831-4s5jni8s03fiujpnpdcac15hl7h32bkq.apps.googleusercontent.com",
     "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",
