@@ -1,0 +1,6 @@
+
+exports.STATUS_OK = 200;
+exports.STATUS_OK_NO_CONTEST = 204;
+exports.STATUS_BAD_REQUEST = 400;
+exports.STATUS_UNAUTHORIZED = 401;
+exports.STATUS_UNKNOWN = 500;
