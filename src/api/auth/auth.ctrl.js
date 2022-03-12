@@ -5,7 +5,6 @@ const { STATUS_BAD_REQUEST, STATUS_UNKNOWN, STATUS_OK, STATUS_OK_NO_CONTEST } = 
 const { User } = require('../../models/user');
 
 const login = async (ctx) => {
-    console.log('0');
     try {
         const sns_token = ctx.request.header.authorization
         if (!sns_token) {
@@ -13,12 +12,10 @@ const login = async (ctx) => {
             ctx.body = { status: 'there is no sns token' };
             return;
         }
-        console.log('1');
 
         const schema = Joi.object().keys({
             sns_type: Joi.string().required()
         });
-        console.log('2');
 
         const result = schema.validate(ctx.request.body);
         if (result.error) {
@@ -26,7 +23,6 @@ const login = async (ctx) => {
             ctx.body = result.error;
             return;
         }
-        console.log('3');
 
         const { sns_type } = ctx.request.body;
 
@@ -52,7 +48,6 @@ const login = async (ctx) => {
             return;
         }
 
-        console.log('4');
         const userId = `${sns_type}_${loginData.snsId}`;
         const exists = await User.findByUserId(userId);
         if (!exists) {
@@ -62,7 +57,6 @@ const login = async (ctx) => {
             await user.setUserId(userId);
             await user.save();
         }
-        console.log('5');
 
         ctx.body = {
             status: `login success.`,
@@ -90,7 +84,6 @@ const withdrawal = async (ctx) => {
         const user = await User.findByUserId(loginuser.userid);
         await User.findByIdAndRemove(user._id).exec();
         ctx.status = STATUS_OK_NO_CONTEST;
-        console.log(user);
     } catch (e) {
         ctx.throw(STATUS_UNKNOWN, e);
     }
