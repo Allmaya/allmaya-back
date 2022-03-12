@@ -1,7 +1,7 @@
 const { OAuth2Client } = require('google-auth-library');
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const { STATUS_BAD_REQUEST, STATUS_UNKNOWN, STATUS_OK, STATUS_OK_NO_CONTEST } = require('../../lib/status');
+const { STATUS_BAD_REQUEST, STATUS_UNKNOWN, STATUS_OK, STATUS_OK_NO_CONTEST, STATUS_UNAUTHORIZED } = require('../../lib/status');
 const { User } = require('../../models/user');
 
 const login = async (ctx) => {
