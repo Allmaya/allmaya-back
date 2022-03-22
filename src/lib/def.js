@@ -1,0 +1,1 @@
+exports.SNS_GOOGLE = 'google';
